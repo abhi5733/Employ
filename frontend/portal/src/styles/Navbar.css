@@ -1,0 +1,13 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#navbar{
+    display : flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+    border: 1px solid black;
+}
