@@ -8,9 +8,9 @@ require("dotenv").config()
 const app = express()
 
 app.use(express.json())
-app.use(authenticator)
- app.use("/user" , userRoute)
 
+ app.use("/user" , userRoute)
+ app.use(authenticator)
 
 
  app.get("/" , async(req,res)=>{
