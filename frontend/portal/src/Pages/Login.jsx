@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import  "../styles/Login.css"
-import { Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input ,  useToast } from '@chakra-ui/react'
 import axios from "axios"
+import { useDispatch , useSelector } from 'react-redux'
+import { loginFunction } from '../redux/action'
 
 
 const Login = () => {
- 
+
+  const dispatch= useDispatch() 
+  const toast =  useToast()
   const[state,setState] = useState({})
 
   const handleChange = (e)=>{
@@ -19,9 +23,24 @@ const Login = () => {
 
   const handleSubmit = (e)=>{
     e.preventDefault()
-    axios.post("https://employme-b4ru.onrender.com/user/login" , state)
-    .then((res)=>console.log(res))
-    .catch((err)=>console.log(err))
+
+   dispatch(loginFunction(state)).then((res)=> {console.log(res),localStorage.setItem("token" , res.data.token),toast({
+      description: "Login Successfull.",
+      status: 'success',
+      position:"top",
+      duration: 2000,
+      isClosable: true,
+    })})
+   .catch((err)=> {console.log(err),toast({
+    description: "Login failed.",
+    status: 'error',
+    position:"top",
+    duration: 2000,
+    isClosable: true,
+  })})
+
+
+
   
   }
 

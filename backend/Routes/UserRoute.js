@@ -85,10 +85,10 @@ if(alreadyUser.length>0){
        
         if(result){
             const token = jwt.sign({ UserId: alreadyUser[0]._id }, 'masai')
-            res.send({"msg":"login Successfull" , "token":token})
+            res.status(200).send({"msg":"login Successfull" , "token":token})
 
         }else{
-       res.send({"msg":"Invalid Password"})
+            res.status(401).send({"msg": "Invalid Password"});
         }
 
     });
@@ -96,7 +96,8 @@ if(alreadyUser.length>0){
 
 
 }else{
-    res.send({"msg":"wrong credentials"})
+    res.status(404).send({"msg":"wrong credentials"});
+   
 }
     }catch(err){
    
