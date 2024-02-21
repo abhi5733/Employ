@@ -4,13 +4,14 @@ const {userRoute} = require("./Routes/UserRoute")
 const {userModel} = require("./Model/UserModel")
 const {authenticator} = require("./middleware/Authentication")
 require("dotenv").config()
-
+const  cors = require("cors")
 const app = express()
 
 app.use(express.json())
-
+app.use(cors)
  app.use("/user" , userRoute)
  app.use(authenticator)
+ 
 
 
  app.get("/" , async(req,res)=>{
