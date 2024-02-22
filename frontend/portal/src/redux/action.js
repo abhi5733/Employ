@@ -4,7 +4,7 @@ import axios from "axios"
 
 export const loginFunction = (obj)=>(dispatch)=>{
 console.log(obj)
-  return  axios.post("https://employme-b4ru.onrender.com/user/login", obj).then((res)=> res)
+  return  axios.post("https://employme-b4ru.onrender.com/user/register", obj).then((res)=>res)
     .catch((err)=>err)
 
 }

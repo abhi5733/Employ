@@ -24,12 +24,12 @@ console.log(req.body.userType)
                 bcrypt.hash( password , 10 , async (err, hash)=> {
            
                     if(err){
-                  res.send(err)
+                  res.status(404).send({"msg" : "create account first"})
                     }else{
                         console.log(req.body)
                   let user = new userModel({...req.body,password:hash})
                  await user.save()
-                 res.send({"msg":"User registered successfully" , user})
+                 res.status(200).send({"msg":"User registered successfully" , user})
                     }
     
                 });
@@ -54,13 +54,13 @@ console.log(req.body.userType)
 
         }
 
-        } else {
-            res.send({ "msg": "User already registered" })
+        } else{
+            res.status(401).send({ "msg": "User already registered" })
         }
 
     } catch (err) {
         console.log(err)
-        res.send(err)
+        res.status(403).send({"msg" : "Something went wrong"})
     }
 
 
