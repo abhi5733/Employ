@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     password:String,
     number : String,
     status : String,
-    city : String
+    city : String ,
+    profilePic : String
     
 })
 

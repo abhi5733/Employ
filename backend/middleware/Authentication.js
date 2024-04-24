@@ -14,7 +14,8 @@ const token = req.headers.authorization
     // console.log(decoded)
 
     if(decoded){
-        console.log(decoded.UserId)
+        // console.log(decoded.UserId)
+        
         req.body.UserId = decoded.UserId
        
         next()

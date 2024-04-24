@@ -52,49 +52,51 @@ useEffect(() => {
         scrollContainerRef.current.removeEventListener("scroll", handleScroll);
       }
     };
-  }, []);
-
+  }, []) ;
 
 
   return (
-    <Box style={{height:"1000px" , width:"80%" , border:"1px solid black" , margin:"auto", boxShadow:'dark-lg'  }} >
+ 
+  <Box backgroundColor={"#f8f8fc"} > 
+    <Box style={{height:"1000px" , width:"80%" , margin:"auto", boxShadow:'dark-lg'  }} >
     {/* 1st */}
     <Box style={{textAlign:"center"  , padding:"50px"}} >
       <Text style={{margin:"10px" , fontSize:"50px" , fontWeight:"bold"}}>Find Your Dream Job Now</Text>
-      <Text style={{margin:"10px" , fontWeight:"normal"}}>5 lakh + job for you to explore</Text>
-      <Box style={{ position:"relative", height:"60px" , }} ><Input style={{width:"60%" , height:"100%" , borderRadius:"50px" , border:"0",  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)"  }} />    <Button style={{position:"absolute" , right:"21%" , borderRadius:"50px", height:"80%" ,top:"10%"}} >Search</Button> </Box> 
+      <Text style={{margin:"10px" }} fontWeight={"semibold"} fontSize={"lg"} >5 lakh + job for you to explore</Text>
+      <Box style={{ position:"relative", height:"60px"}} mt={10} ><Input style={{width:"60%" , height:"100%" , borderRadius:"50px" , border:"0",  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)"  }} bgColor={"white"}  />    <Button style={{position:"absolute" , right:"21%" , borderRadius:"50px", height:"80%" ,top:"10%"}} zIndex={5} >Search</Button> </Box> 
    
     </Box>
 {/* 2 nd */}
 
  <Box mt={20} >
   <Flex justifyContent="space-around" >
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
      
   </Flex>
   <Flex justifyContent="space-around" mt={10} >
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
+     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
      
   </Flex>
  </Box>
  {/* 3 rd  */}
 
-<Box textAlign="center" border={"1px solid black"} mt="50px" position={"relative"} >
+<Box textAlign="center"  mt="50px" position={"relative"} >
 
 <Text fontSize="30px" fontWeight="bold" >Top companies hiring now</Text>
 
-<Flex overflow="hidden" mt={10}  width="100%" border="1px solid black" gap={5}  ref={scrollContainerRef}  >
- {showLeftButton &&  <FaAnglesLeft onClick={scrollLeft}   style={{position:"absolute", left:"10px" ,  zIndex:"1"  , top:"60%" , border:"1px solid black" , fontSize:30 , borderRadius:"50%" , padding:5 , backgroundColor:"white" }} />}
-   { showRightButton &&    <FaAnglesRight  onClick={scrollRight} style={{position:"absolute", right:"10px" ,  zIndex:"1"  , top:"60%" , border:"1px solid black" , fontSize:30 , borderRadius:"50%" , padding:5 ,  backgroundColor:"white"}}   />
+<Flex overflow="hidden" p={2} mt={10}  width="100%"  gap={5}  ref={scrollContainerRef}  >
+ {showLeftButton &&  <FaAnglesLeft onClick={scrollLeft}   style={{position:"absolute", left:"10px" ,  zIndex:"1"  , top:"55%" , border:"1px solid lightgray" , fontSize:40 , borderRadius:"50%" , padding:10 , backgroundColor:"white"  }} />}
+   { showRightButton &&    <FaAnglesRight  onClick={scrollRight} style={{position:"absolute", right:"10px" ,  zIndex:"1"  , top:"55%" , border:"1px solid lightgray"  , fontSize:40 , borderRadius:"50%" , padding:10 ,  backgroundColor:"white" ,  }}   />
      
       }
 
@@ -106,6 +108,7 @@ useEffect(() => {
 
 </Box>
 
+    </Box>
     </Box>
   )
 }
