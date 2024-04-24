@@ -100,7 +100,9 @@ const[addSkills,setAddSkills] = useState(false)
     // formData.Userid = data._id
     // console.log(formData)
     try {
-      const response = await axios.post('http://localhost:7300/admin/uploadPhoto', formData, {
+     
+      // http://localhost:7300/
+      const response = await axios.post('https://employme-b4ru.onrender.com/admin/uploadPhoto', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           "authorization" : localStorage.getItem("token"),

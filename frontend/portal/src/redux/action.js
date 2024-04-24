@@ -5,8 +5,8 @@ import axios from "axios"
 // login function
 
 export const loginFunction = (obj)=>(dispatch)=>{
-
-  return  axios.post(`http://localhost:7300/user/login`, obj).then((res)=>res)
+    // http://localhost:7300/
+  return  axios.post(`https://employme-b4ru.onrender.com/user/login`, obj).then((res)=>res)
     .catch((err)=>err)
 
 }
