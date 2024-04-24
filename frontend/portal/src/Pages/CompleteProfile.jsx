@@ -109,7 +109,7 @@ const[addSkills,setAddSkills] = useState(false)
           "Userid" : data._id
         }
       });
-      
+
       console.log('File uploaded successfully:', response.data);
       setData(response.data)
   handlePhotoModal()
