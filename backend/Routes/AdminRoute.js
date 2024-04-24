@@ -89,7 +89,7 @@ adminRoute.post('/uploadResume',  upload.single('resume'), async (req, res) => {
 
 adminRoute.post('/uploadPhoto',  upload.single('photo'), async (req, res) => {
     // Handle file upload
-
+try{
     const { filename, path } = req.file;
     console.log(path)
     // Save file metadata to database
@@ -106,6 +106,9 @@ adminRoute.post('/uploadPhoto',  upload.single('photo'), async (req, res) => {
 //     })
 //    await data.save()
     res.send(user);
+}catch(err){
+  res.send(err)
+}
   });
 
 
