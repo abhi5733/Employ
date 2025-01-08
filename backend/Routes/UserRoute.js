@@ -7,37 +7,19 @@ const { adminModel } = require("../Model/Admin");
 
 
 
-///////////////////////////////////////////////////////////////////////  register route  /////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////// User register route  /////////////////////////////////////////////////////////////////////////////////////
 
 userRoute.post("/register", async (req, res) => {
 
     const { email , password } = req.body
-console.log(req.body.userType)
+console.log(req.body.userType,"Type")
     try {
 
         const alreadyUser = await userModel.find({ email })
-       
+        const previousAdmin = await adminModel.find({email})
 
-        if (alreadyUser.length == 0) {
-           console.log(1)
-            if(req.body.userType){   // for admin registerations
-               
-                bcrypt.hash( password , 10 , async (err, hash)=> {
-           
-                    if(err){
-                  res.status(404).send({"msg" : "create account first"})
-                    }else{
-                        console.log(req.body)
-                  let user = new userModel({...req.body,password:hash,profilePic :""})
-                 await user.save()
-                 res.status(200).send({"msg":"User registered successfully" , user})
-                    }
+        if (alreadyUser.length == 0 && previousAdmin.length==0) {
     
-                });
-
-
-            }else{
-                console.log(2)
             bcrypt.hash(password , 10 , async (err, hash)=> {
            
                 if(err){
@@ -51,10 +33,12 @@ console.log(req.body.userType)
 
             });
 
-        }
+        
 
-        } else{
-            res.status(401).send({ "msg": "User already registered" })
+        }else if(alreadyUser.length > 0 ){
+            res.status(200).send({"msg": "User has already registered , You can Login"})
+        }else{
+            res.status(401).send({"msg": "User has already registered as job seeker"})
         }
 
     } catch (err) {
@@ -62,12 +46,62 @@ console.log(req.body.userType)
         res.status(403).send({"msg" : "Something went wrong"})
     }
 
-
-
 })
 
 
-///////////////////////////////////////////////////////////    Login Route    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// Admin Registering  /////////////////////////////////////////////////////////////////////////
+
+
+
+userRoute.post("/adminRegister" , async(req,res) => {
+
+    console.log(req.body,"body")    
+        try{
+       const email = req.body.email ; 
+       const password = req.body.password ;
+            const previousUser = await userModel.find({email})
+            const previousAdmin = await adminModel.find({email})
+    
+            if(previousUser.length==0 && previousAdmin.length==0){
+    
+                bcrypt.hash( password , 10 , async (err, hash)=> {
+               
+                    if(err){
+                       
+                        res.status(404).send({"msg" : "create account first"})
+                    
+                    }else{
+                    
+                        
+                        const user = new adminModel({...req.body,password:hash})
+                        await user.save()
+                        res.status(200).send({"msg":"Admin registered successfully" , user})
+                    
+                    }
+    
+                }) 
+    
+            }else if(previousUser.length>0 ){
+            
+                 res.status(401).send({"msg": "User has already registered as job seeker"})
+            }else{
+                
+                res.status(200).send({"msg": "Admin has already registered , You can Login"})
+            }
+    
+        
+     }catch(err){
+    // console.log("err")
+            res.send(err)
+       
+        }
+    
+    })
+    
+    
+
+
+///////////////////////////////////////////////////////////  user  Login Route    ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 userRoute.post("/login" , async (req,res)=>{
@@ -100,8 +134,56 @@ console.log(password, alreadyUser[0].password)
 }
     }catch(err){
    
-        res.send({"msg":"Something went wrong"})
+        res.status(500).send({"msg":"Something went wrong"})
 
+    }
+
+})
+
+
+////////////////////////////////////////////////////////////////   Admin login     /////////////////////////////////////////////////////////////////////////////// 
+
+
+userRoute.post("/adminLogin" , async (req,res)=>{
+
+    try{
+console.log(req.body)
+const email = req.body.email
+const password = req.body.password
+        
+const user = await adminModel.find({email})
+
+        if(user.length>0){
+
+            bcrypt.compare(password , user[0].password , function(err, result) {
+       
+                if(result){
+                 
+                    const token = jwt.sign({ UserId: user[0]._id }, 'masai')
+                    res.status(200).send({"msg":"login Successfull" , "token":token})
+        
+                }else{
+        
+  
+                    res.status(401).send({"msg": "Something went wrong"});
+        
+                }
+        
+            }) ;
+        
+
+
+        }else{
+  console.log("I am the error 2")
+            res.status(401).send({"msg": "User not found"});
+
+        }
+
+
+    }catch(err){
+
+        res.status(404).send({"msg": "Something went wrong"});
+    
     }
 
 })
@@ -168,108 +250,6 @@ userRoute.get("/" , async(req,res)=>{
 
 
 
-////////////////////////////////////////////////////////////////   Admin login     /////////////////////////////////////////////////////////////////////////////// 
-
-
-
-
-
-
-// Login Admin 
-
-
-userRoute.post("/adminLogin" , async (req,res)=>{
-
-    try{
-console.log(req.body)
-const email = req.body.email
-const password = req.body.password
-        
-const user = await adminModel.find({email})
-
-        if(user.length>0){
-
-            bcrypt.compare(password , user[0].password , function(err, result) {
-       
-                if(result){
-                 
-                    const token = jwt.sign({ UserId: user[0]._id }, 'masai')
-                    res.status(200).send({"msg":"login Successfull" , "token":token})
-        
-                }else{
-        
-                    res.status(401).send({"msg": "Something went wrong"});
-        
-                }
-        
-            }) ;
-        
-
-
-        }else{
-
-            res.status(401).send({"msg": "User not found"});
-
-        }
-
-
-    }catch(err){
-
-        res.status(404).send({"msg": "Something went wrong"});
-    
-    }
-
-})
-
-
-////////////////////////////////////////////////////////////////// Admin Registering  /////////////////////////////////////////////////////////////////////////
-
-
-// Admin Registering 
-
-userRoute.post("/adminRegister" , async(req,res) => {
-
-console.log(req.body)    
-    try{
-   const email = req.body.email ; 
-   const password = req.body.password ;
-        const previousUser = await userModel.find({email})
-        const previousAdmin = await adminModel.find({email})
-
-        if(previousUser.length==0 && previousAdmin.length==0){
-
-            bcrypt.hash( password , 10 , async (err, hash)=> {
-           
-                if(err){
-            
-                    res.status(404).send({"msg" : "create account first"})
-                
-                }else{
-                
-                    
-                    const user = new adminModel({...req.body,password:hash})
-                    await user.save()
-                    res.status(200).send({"msg":"Admin registered successfully" , user})
-                
-                }
-
-            }) 
-
-        }else if(previousUser.length>0 ){
-
-             res.status(401).send({"msg": "User has already registered as job seeker"})
-        }else{
-            res.status(200).send({"msg": "Admin has already registered , You can Login"})
-        }
-
-    
- }catch(err){
-
-        res.send(err)
-   
-    }
-
-})
 
 
 

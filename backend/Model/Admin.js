@@ -10,7 +10,10 @@ const adminSchema = mongoose.Schema({
     designation : String ,
     pin_code : String,
     address : String ,
-    jobsPosted: Array 
+    jobsPosted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'jobs' }], // Linking to Job model,
+    profilePic : String,
+    CompanyPic : String ,
+    CompanyLoaction : String
 })
 
 

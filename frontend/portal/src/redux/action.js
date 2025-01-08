@@ -1,4 +1,4 @@
-import {Get ,  Login,  loading, stopLoading , user  } from "./actionType" 
+import {Get ,  Login,  Logout,  loading, stopLoading , user  } from "./actionType" 
 import axios from "axios"
 // require('dotenv').config()
 
@@ -6,7 +6,8 @@ import axios from "axios"
 
 export const loginFunction = (obj)=>(dispatch)=>{
     // http://localhost:7300/
-  return  axios.post(`https://employme-b4ru.onrender.com/user/login`, obj).then((res)=>res)
+    // console.log(1)
+  return  axios.post(`${import.meta.env.VITE_URL}/user/login`, obj).then((res)=>res)
     .catch((err)=>err)
 
 }
@@ -16,7 +17,7 @@ export const loginFunction = (obj)=>(dispatch)=>{
 
 export const adminLoginFunction = (obj)=>(dispatch)=>{
 
-    return  axios.post(`http://localhost:7300/user/adminLogin`, obj).then((res)=>res)
+    return  axios.post(`${import.meta.env.VITE_URL}/user/adminLogin`, obj).then((res)=>res)
       .catch((err)=>err)
   
   }
@@ -28,11 +29,21 @@ return{
 }
 }
 
+// logout 
+
+
+export const handleLogout = ()=>{
+    return{
+        type:Logout
+    }
+    }
+    
+
 // signup function
 
 export const signupFunction = (state)=>(dispatch)=>{
 
-    return axios.post("http://localhost:7300/user/register" , state).then((res)=>res)
+    return axios.post(`${import.meta.env.VITE_URL}/user/register` , state).then((res)=>res)
     .catch((err)=>err)
 
 }
@@ -40,8 +51,8 @@ export const signupFunction = (state)=>(dispatch)=>{
 // signup for admin 
 
 export const admiSignupFunction = (state)=>(dispatch)=>{
-console.log(state)
-    return axios.post("http://localhost:7300/user/adminRegister" , state).then((res)=>res)
+
+    return axios.post(`${import.meta.env.VITE_URL}/user/adminRegister` , state).then((res)=>res)
     .catch((err)=>err)
 
 }

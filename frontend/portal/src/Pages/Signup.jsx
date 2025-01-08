@@ -7,9 +7,10 @@ import { Box , FormControl , FormLabel , Input ,  Image ,Flex, Text,  Heading,  
 import { FaRegCircleCheck } from "react-icons/fa6";
 import axios from 'axios'
 import loader from "../assets/loader.gif"
+import {Navigate, useNavigate} from "react-router-dom"
 
 const Signup = () => {
-
+  
   const user = useSelector((store)=>store.user)
   const toast = useToast()
   const[state,setState] = useState({})  // user state
@@ -17,7 +18,7 @@ const Signup = () => {
   const load = useSelector((store)=>store.load)
   const dispatch = useDispatch()
   const store = useSelector((store)=>store.count)
-
+  const navigate = useNavigate()
 
   // handle submit for users 
 
@@ -25,13 +26,13 @@ const Signup = () => {
       e.preventDefault()
       console.log(state);
       dispatch(loadingFunction())
-     dispatch(signupFunction(state)).then((res)=>{console.log(res.data) , toast({
-  description: "Registeration Successfull.",
-  status: 'success',
+     dispatch(signupFunction(state)).then((res)=>{console.log(res?.data?.msg || res.response.data.msg) , toast({
+  description: res?.data?.msg || res.response.data.msg,
+  status: res?.data?.msg ? 'success' : 'error',
   position:"top",
   duration: 2000,
   isClosable: true,
-  }),dispatch(stoploadingFunction()) })
+  }),dispatch(stoploadingFunction()) , navigate("/login")  })
   .catch((err)=> {console.log(err),toast({
   description: "Registeration failed.",
   status: 'error',
@@ -50,20 +51,20 @@ const handleAdminSubmit = (e)=>{
   e.preventDefault()
   console.log(adminState);
   dispatch(loadingFunction())
- dispatch(admiSignupFunction(adminState)).then((res)=>{console.log(res.data) , toast({
-description: "Admin Registeration Successfull.",
-status: 'success',
+ dispatch(admiSignupFunction(adminState)).then((res)=>{console.log(res?.data?.msg || res.response.data.msg) , toast({
+description: res?.data?.msg || res.response.data.msg,
+status: res?.data?.msg?'success':"error",
 position:"top",
 duration: 2000,
 isClosable: true,
-}),dispatch(stoploadingFunction()) })
-.catch((err)=> {console.log(err),toast({
-description: "Admin Registeration failed.",
+}),dispatch(stoploadingFunction()) , <Navigate to="/login" /> })
+.catch((err)=> {console.log(err,"err") , toast({
+description:  "Admin Registeration failed.",
 status: 'error',
 position:"top",
 duration: 2000,
 isClosable: true,
-}),dispatch(stoploadingFunction()) } )
+}),dispatch(stoploadingFunction())  } )
 
 }
 
@@ -102,15 +103,15 @@ isClosable: true,
   <Box width="80%" p={10}   margin="auto"  >
 
   <Flex gap={20}  >
-  { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}    margin={"auto"}  w={"400px"}  /> }
-<Box boxShadow={"lg"} mt={"20px"}  width={"30%"} p={2}  >
+  { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}    margin={"auto"}  w={"500px"} h={"500px"}  /> }
+<Box  bgColor={"white"} boxShadow={"lg"} mt={"20px"}  width={"30%"} p={2}  >
   <Image w={'60%'}  margin={"50px auto"} src="https://static.naukimg.com/s/7/104/assets/images/white-boy.a0d2814a.png" alt="text" />
  <Text textAlign={"Center"} fontWeight="bold" m={10}  >On registering , you can</Text>
 <Flex alignItems={"center"} ><FaRegCircleCheck /> <Text m={2} >Build your Profie and let recruiters find you</Text></Flex>
 <Flex alignItems={"center"} ><FaRegCircleCheck/> <Text m={2}>Build your Profie and let recruiters find you</Text></Flex>
 <Flex alignItems={"center"} ><FaRegCircleCheck/> <Text m={2}>Build your Profie and let recruiters find you</Text></Flex>
 </Box>
-<Box boxShadow={"lg"} width={"50%"} mt={"20px"}  borderRadius={20} p={2} > 
+<Box boxShadow={"lg"} width={"50%"} mt={"20px"}  bgColor={"white"}  borderRadius={20} p={2} > 
 <form onSubmit={handleSubmit}> 
   <FormControl  isRequired p={2} >
 
@@ -151,7 +152,7 @@ isClosable: true,
 </Flex>
 <FormLabel mt={5}>City</FormLabel>
 <Input type='text' name="city" value={state.city} onChange={handleChange}  />
-  <Button isDisabled={state.status?false:true} type='submit'mt={5} >Register Now</Button>
+  <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} isDisabled={state.status?false:true} type='submit'mt={5} >Register Now</Button>
   
   </FormControl>
   </form>
@@ -174,7 +175,7 @@ isClosable: true,
 <Image margin={"auto"} src="https://static.naukimg.com/s/5/117/i/loginFormImage.f7f800ccb930349b460a.png" width={"70%"} mt={10} />
 
     </Box>
-<Box  boxShadow={"2xl"} mt={50} bgColor={"white"} w="50%" p={5}> 
+<Box borderRadius={"10px"}  boxShadow={"2xl"} mt={50}  bgColor={"white"} w="50%" p={5}> 
 <form onSubmit={handleAdminSubmit}> 
   <FormControl  isRequired p={2} >
 
@@ -201,7 +202,7 @@ isClosable: true,
 
 
 
-  <Button  type='submit'mt={5} >Register Now</Button>
+  <Button  color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit'mt={5} >Register Now</Button>
  
   </FormControl>
   </form> </Box>
@@ -218,14 +219,6 @@ isClosable: true,
 }
 
 
-// name:String,
-// email:String,
-// password:String,
-// number:String,
-// company_name: String ,
-// designation : String ,
-// pin_code : String,
-// address : String ,
-// jobsPosted: Array 
+
 
 export default Signup

@@ -49,6 +49,7 @@ console.log("Mongo DB connected")
 
     }catch(err){
         console.log("Mongo DB not  connected")
+        console.log(err)
     }
     console.log(`Server running at ${process.env.port} port`)
 })

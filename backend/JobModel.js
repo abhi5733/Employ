@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 
 
 const jobSchema = mongoose.Schema({
-    company_name: { type: String, required: true },
+    company_name:String,
     postTitle:String,
     description : String , 
     vacancy:Number,
@@ -16,11 +16,9 @@ const jobSchema = mongoose.Schema({
     employment_type: { type: String, enum: ['Full-time', 'Part-time', 'Contract', 'Internship'], required: true }, // Type of employment
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
-    tags: [String]   // Tags for easy filtering (e.g., 'JavaScript', 'Remote')
+    tags: { type: [String] }  // Tags for easy filtering (e.g., 'JavaScript', 'Remote')
 
-} ,
-{ timestamps: true }
-)
+})
 
 
 

@@ -6,7 +6,7 @@ import { useDispatch , useSelector } from 'react-redux'
 import { adminLoginFunction, loadingFunction, logged, loginFunction, stoploadingFunction } from '../redux/action'
 import { IoMdCheckmark } from "react-icons/io";
 import loader from "../assets/loader.gif"
-import { loading, stopLoading } from '../redux/actionType'
+// import { loading, stopLoading } from '../redux/actionType'
 import loginImage from "../assets/EmployImage1.jpg"
 import {useNavigate} from "react-router-dom"
 
@@ -29,34 +29,99 @@ const login = useSelector((store)=>store.login)
   }
 
 //  handling user login 
-  const handleSubmit = (e)=>{
-    e.preventDefault()
-    dispatch(loadingFunction())
-   dispatch(loginFunction(state)).then((res)=> {console.log(res),localStorage.setItem("token" , res.data.token), dispatch(logged()),toast({
+  const  handleSubmit = async (e)=>{
+    try{
+    e.preventDefault() ;
+    dispatch(loadingFunction()) ;
+  const res  = await  dispatch(loginFunction(state)) ;
+    if(res.status==200){
+  console.log(res);
+  localStorage.setItem("token" , res.data.token);
+  localStorage.setItem("role", "user");  // storing the role 
+
+   dispatch(logged());
+    
+   toast({
       description: "Login Successfull.",
       status: 'success',
       position:"top",
       duration: 2000,
       isClosable: true,
-    }),dispatch(stoploadingFunction()), navigate("/profile") })
-   .catch((err)=> {console.log(err),toast({
+    });
+    dispatch(stoploadingFunction());
+     navigate("/profile") 
+  }else{
+    toast({
+      description: "Login failed.",
+      status: 'error',
+      position:"top",
+      duration: 2000,
+      isClosable: true,
+    });
+    dispatch(stoploadingFunction());
+    
+  }
+  }catch(err){
+   console.log(err);
+   toast({
+      description: "Login failed.",
+      status: 'error',
+      position:"top",
+      duration: 2000,
+      isClosable: true,
+    });
+    dispatch(stoploadingFunction())}
+  }
+ 
+
+
+
+
+// handling admin login 
+
+
+
+const  handleAdminSubmit = async (e)=>{
+  try{
+  e.preventDefault() ;
+  dispatch(loadingFunction()) ;
+const res  = await  dispatch(adminLoginFunction(state)) ;
+  if(res.status==200){
+console.log(res);
+localStorage.setItem("token" , res.data.token);
+localStorage.setItem("role", "admin");  // storing the role 
+ dispatch(logged());
+  
+ toast({
+    description: "Login Successfull.",
+    status: 'success',
+    position:"top",
+    duration: 2000,
+    isClosable: true,
+  });
+  dispatch(stoploadingFunction());
+   navigate("/profile") 
+}else{
+  toast({
     description: "Login failed.",
     status: 'error',
     position:"top",
     duration: 2000,
     isClosable: true,
-  }),dispatch(stoploadingFunction())})
-
+  });
+  dispatch(stoploadingFunction());
+  
 }
-
-
-// handling admin login 
-
-const handleAdminSubmit=(e)=>{
-  e.preventDefault()
-  dispatch(adminLoginFunction(state)).then((res)=>console.log(res))
-  .catch((err)=>console.log(err))
-
+}catch(err){
+ console.log(err);
+ toast({
+    description: "Login failed.",
+    status: 'error',
+    position:"top",
+    duration: 2000,
+    isClosable: true,
+  });
+  dispatch(stoploadingFunction())}
 }
 
   return (
@@ -65,11 +130,11 @@ const handleAdminSubmit=(e)=>{
   {user=="user"?
   <Box width="80%" margin="auto"  >
                         {/* loader Image */}
-  { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}  border="1px solid black"  margin={"auto"}  w={"400px"}  /> }
+  { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}   margin={"auto"} h={"500px"}  w={"500px"}  /> }
   
   <Flex width={"100%"} gap={5}   >
 
-    <Box w={"50%"} boxShadow={"2xl"}  mt={100} bgColor={"white"} borderRadius={"10px"} p={5}  >
+    <Box w={"50%"} boxShadow={"2xl"} h={"500px"} mt={100} bgColor={"white"} borderRadius={"10px"} p={5}  >
 
 <Heading fontSize={"xl"} >New to EmployMe ?</Heading>
 <Box mt={2} lineHeight={10}  >
@@ -77,11 +142,11 @@ const handleAdminSubmit=(e)=>{
   <Flex alignItems={"center"} > <Icon as={IoMdCheckmark} m={2} /> <Text>One click apply using naukri profile.</Text> </Flex>
   <Flex alignItems={"center"} > <Icon as={IoMdCheckmark}  m={2} /> <Text>Get relevant job recommendations.</Text> </Flex>
   <Flex alignItems={"center"}> <Icon as={IoMdCheckmark}  m={2} /> <Text>Showcase profile to top companies and consultants.</Text> </Flex>
-  <Button  mt={2}>Register for free</Button>
+  <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}  mt={2}>Register for free</Button>
 
 </Box>
 
-<Image  src={loginImage} width={"50%"} mt={10} />
+<Image  src={loginImage} height={"200px"} width={"50%"} mt={10} />
 
     </Box>
 
@@ -97,7 +162,7 @@ const handleAdminSubmit=(e)=>{
   <Input type="password" name="password" onChange={handleChange} value={state.password} /> 
   
   {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-  <Button type='submit'mt={5} >Submit</Button>
+  <Button type='submit'mt={5}  color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}>Submit</Button>
   </FormControl>
   </form>
   </Box>
@@ -131,7 +196,7 @@ const handleAdminSubmit=(e)=>{
   <Input type="password" name="password" onChange={handleChange} value={state.password} /> 
   
   {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-  <Button type='submit'mt={5} >Submit</Button>
+  <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit'mt={5} >Submit</Button>
   </FormControl>
   </form>
   </Box>

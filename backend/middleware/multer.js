@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 
+// multer parses the form/data and stores the file in the uploads folder
 
 const storage = multer.diskStorage({
    

@@ -8,7 +8,11 @@ const userSchema = mongoose.Schema({
     number : String,
     status : String,
     city : String ,
-    profilePic : String
+    profilePic : String ,
+    myJobs : [{ type: mongoose.Schema.Types.ObjectId, ref: 'jobs' }],
+    resume:String ,
+    // userID : String,
+    skills : []
     
 })
 

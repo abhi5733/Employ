@@ -4,16 +4,6 @@ Frontend Deployed Link : https://employ-chi.vercel.app/
 
 
 
-
-
-
-
-
-
-
-
-
-
 plan : 
 1 : Navbar 
 2 : Home Page 
@@ -22,18 +12,14 @@ plan :
 info :
 
 
-1 : email : abhijeetkale5733@gmail.com
-    password : abhi5733
-
-2 : email : masai@gmail.com
-    password : masai     
-
+// user : 
+1 : abhi@gmail.com , a 
 
 
 // admin :
 
-1 : email : abhi@gmail.com
-    password : abhi2411
+1 : email : ak@gmail.com
+    password : ak
 
 
 
