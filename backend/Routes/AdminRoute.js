@@ -83,7 +83,7 @@ try{
 
   
 
-    user[0].resume = cloud.url 
+    user[0].resume = cloud.secure_url
   await user[0].save()
   res.send(user[0]);
 }catch(err){
