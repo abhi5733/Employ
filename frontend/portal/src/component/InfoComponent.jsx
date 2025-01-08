@@ -27,7 +27,7 @@ const dispatch = useDispatch()
        e.preventDefault()
        console.log(data)
     
-       const datas = await axios.put("http://localhost:7300/admin/updateUser" , data , {
+       const datas = await axios.put(`${import.meta.env.VITE_URL}/admin/updateUser` , data , {
     // user Information passed in headers 
           headers:{
             authorization : localStorage.getItem("token") ,
@@ -92,7 +92,7 @@ const dispatch = useDispatch()
           setJobDescription((prev)=>({...prev,company_name:data.company_name}))
        
         // console.log("job posted",jobDescription)
-        const datas = await axios.post("http://localhost:7300/admin/postJob" , jobDescription , { headers:{
+        const datas = await axios.post(`${import.meta.env.VITE_URL}/admin/postJob` , jobDescription , { headers:{
           authorization : localStorage.getItem("token") 
 
         }})
@@ -133,7 +133,7 @@ const dispatch = useDispatch()
 
         try{
          dispatch(loadingFunction())
-          const data = await axios.put("http://localhost:7300/admin/updateJob", editInfo , { headers:{
+          const data = await axios.put(`${import.meta.env.VITE_URL}/admin/updateJob`, editInfo , { headers:{
             authorization : localStorage.getItem("token") 
           }})
          dispatch(stoploadingFunction())

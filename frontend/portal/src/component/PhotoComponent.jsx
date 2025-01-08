@@ -44,7 +44,7 @@ const PhotoComponent = ({data,setData,photoModal , handlePhotoModal , handleFile
             //  User information passed in Headers
               handlePhotoModal()
               dispatch(loadingFunction())
-              const response = await axios.post('http://localhost:7300/admin/uploadPhoto', formData, {
+              const response = await axios.post(`${import.meta.env.VITE_URL}/admin/uploadPhoto`, formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                   "authorization" : localStorage.getItem("token"),
