@@ -82,9 +82,11 @@ const login = useSelector((store)=>store.login)
 
 
 const  handleAdminSubmit = async (e)=>{
-  try{
   e.preventDefault() ;
   dispatch(loadingFunction()) ;
+  try{
+
+
 const res  = await  dispatch(adminLoginFunction(state)) ;
   if(res.status==200){
 console.log(res);
@@ -102,6 +104,7 @@ localStorage.setItem("role", "admin");  // storing the role
   dispatch(stoploadingFunction());
    navigate("/profile") 
 }else{
+
   toast({
     description: "Login failed.",
     status: 'error',
@@ -126,15 +129,16 @@ localStorage.setItem("role", "admin");  // storing the role
 
   return (
     
-  <Box bgColor={"#f8f8fc"} >  
+  <Box bgColor={"#f8f8fc"} > 
+    { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}   margin={"auto"} h={"500px"}  w={"500px"}  /> }
+   
   {user=="user"?
   <Box width="80%" margin="auto"  >
                         {/* loader Image */}
-  { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}   margin={"auto"} h={"500px"}  w={"500px"}  /> }
-  
-  <Flex width={"100%"} gap={5}   >
 
-    <Box w={"50%"} boxShadow={"2xl"} h={"500px"} mt={100} bgColor={"white"} borderRadius={"10px"} p={5}  >
+  <Flex flexDirection={["column","column","row","row"]} width={"100%"} gap={5}   >
+
+    <Box w={[ "100%","100%","50%","50%"]} boxShadow={"2xl"} h={"500px"} mt={[10 ,10,100,100]} bgColor={"white"} borderRadius={"10px"} p={5}  >
 
 <Heading fontSize={"xl"} >New to EmployMe ?</Heading>
 <Box mt={2} lineHeight={10}  >
@@ -146,11 +150,11 @@ localStorage.setItem("role", "admin");  // storing the role
 
 </Box>
 
-<Image  src={loginImage} height={"200px"} width={"50%"} mt={10} />
+<Image  src={loginImage} height={["100px","100px" , "100px" ,"200px"]} width={"50%"} mt={10} />
 
     </Box>
 
-  <Box w={"50%"} m={"auto"} boxShadow={"2xl"} h={"500px"} bgColor={"white"} borderRadius={"10px"}   mt={100} p={5} > 
+  <Box w={[ "100%","100%","50%","50%"]} m={"auto"} boxShadow={"2xl"} h={"500px"} bgColor={"white"} borderRadius={"10px"}   mt={[10 ,10,100,100]} p={5} > 
   <form onSubmit={handleSubmit}> 
   <FormControl  isRequired >
 <Heading fontSize={"xl"} >Login</Heading>
@@ -171,9 +175,11 @@ localStorage.setItem("role", "admin");  // storing the role
 
   </Box>:
   <Box width="80%" margin="auto"> 
-  <Flex width={"100%"} gap={5} >
+   {/* { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}   margin={"auto"} h={"500px"}  w={"500px"}  /> } */}
+  
+  <Flex  flexDirection={["column","column","row","row"]} width={"100%"} gap={5} >
 
-    <Box w={"50%"} boxShadow={"2xl"}  mt={100} bgColor={"white"} borderRadius={"10px"} p={5}  >
+    <Box w={[ "100%","100%","50%","50%"]} boxShadow={"2xl"}   mt={[10 ,10,100,100]} bgColor={"white"} borderRadius={"10px"} p={5}  >
 
 <Heading fontSize={"xl"} >From Campus to Senior Level Hiring</Heading>
 <Box mt={2} lineHeight={10}  >
@@ -184,7 +190,7 @@ localStorage.setItem("role", "admin");  // storing the role
 
     </Box>
 
-  <Box w={"50%"} m={"auto"} boxShadow={"2xl"} h={"500px"} bgColor={"white"} borderRadius={"10px"}   mt={100} p={5} > 
+  <Box  w={[ "100%","100%","50%","50%"]} m={"auto"} boxShadow={"2xl"} h={"500px"} bgColor={"white"} borderRadius={"10px"}    mt={[10 ,10,100,100]} p={5} > 
   <form onSubmit={handleAdminSubmit}> 
   <FormControl  isRequired >
 <Heading fontSize={"xl"} >Login</Heading>

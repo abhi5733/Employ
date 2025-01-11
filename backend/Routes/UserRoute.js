@@ -147,6 +147,7 @@ console.log(password, alreadyUser[0].password)
 userRoute.post("/adminLogin" , async (req,res)=>{
 
     try{
+
 console.log(req.body)
 const email = req.body.email
 const password = req.body.password
@@ -163,14 +164,12 @@ const user = await adminModel.find({email})
                     res.status(200).send({"msg":"login Successfull" , "token":token})
         
                 }else{
-        
-  
+                    console.log("I am the error 1")
                     res.status(401).send({"msg": "Something went wrong"});
         
                 }
         
             }) ;
-        
 
 
         }else{
@@ -181,8 +180,8 @@ const user = await adminModel.find({email})
 
 
     }catch(err){
-
-        res.status(404).send({"msg": "Something went wrong"});
+        console.log("I am the error 3")
+        res.status(404).send({"msg": "Something went wrong", err});
     
     }
 

@@ -176,7 +176,7 @@ const dispatch = useDispatch()
   return (
    <Box>
     {/******************** Info Box *********************************/}
-    <Box> 
+    <Box > 
               <Flex alignItems={"center"} width={"100%"} justifyContent={"center"} > 
                 <Heading>{data?.name}</Heading> 
                  <FaPen isDisabled={load?true:false} onClick={()=>load?"null":setModal((prev)=>!prev)}  style={{marginLeft:"10px" , cursor:"pointer"  }} /> </Flex>
@@ -185,14 +185,14 @@ const dispatch = useDispatch()
               width={"100%"}
               bg={"gray.300"} 
               m={"20px auto"} />
-              <Flex h={"50%"}  > 
-                <Box w={"50%"}  >
+              <Flex  flexDirection={["column","column","row","row"]} h={"50%"}  > 
+                <Box  w={["100%","100%","50%","50%"]}  >
                 <Flex  mt={"20px"}  alignItems={"center"} ><FaLocationDot style={{ fontSize:"30px" , marginRight:"10px"}}/>  <Text fontSize={"20px"} >{user=="user"?data?.city:data.company_name}</Text> </Flex>   
                <Flex mt={"20px"} alignItems={"center"}  >  <IoBriefcase style={{ mt:"100px" ,    fontSize:"30px" ,marginRight:"10px"}} />  <Text  fontSize={"20px"}>{user=="user"?data?.status:data.designation}</Text> </Flex>   
               
                 </Box>
               
-                <Box w={"50%"}  >
+                <Box  w={["100%","100%","50%","50%"]}  >
               <Flex  mt={"20px"}  alignItems={"center"} > <FaEnvelope style={{ fontSize:"30px" ,  marginRight:"10px"}} /> <Text  fontSize={"20px"}>{data?.email?data.email:""}</Text> </Flex>  
              <Flex  mt={"20px"}  alignItems={"center"} > <FaPhoneAlt style={{fontSize:"30px" , marginRight:"10px"}} />  <Text  fontSize={"20px"}>{data?.number}</Text> </Flex> 
                 </Box>
@@ -207,8 +207,8 @@ const dispatch = useDispatch()
 
               {/*************************** Info / job Modal ***************************************/}
 
-              {modal &&    <Box zIndex={102} bgColor={"white"} position={"absolute"} p={2} w={"500px"} top={user=="user"?"-10%":job?"-20%":"-50%"} left={"10%"}  boxShadow='2xl'  borderRadius={"10px"} border={"1px solid white"}  display={modal?"block":"none"} >
-             <Box  position={"relative"} top={"10px"} left={"93%"} _hover={{cursor:"pointer"}} onClick={()=>{setModal((prev)=>!prev),setJob(false),setEditJob(false)}} > <ImCancelCircle style={{fontSize:"25px"}}  /> </Box>
+              {modal &&    <Box zIndex={102} bgColor={"white"} position={"fixed"} p={2} margin={"auto"} w={["90%", "80%", "50%", "40%"]} top={user === "user" ? ["50%", "50%", "50%", "50%"] : job ? "20%" : "10%"} left="50%" transform="translate(-50%, -50%)" boxShadow='2xl'  borderRadius={"10px"}   display={modal?"block":"none"} >
+             <Box  position={"relative"} top={"10px"} left={["85%","93%","93%","93%"]} _hover={{cursor:"pointer"}} onClick={()=>{setModal((prev)=>!prev),setJob(false),setEditJob(false)}} > <ImCancelCircle style={{fontSize:"25px"}}  /> </Box>
                       {user=="user"?<form onSubmit={handleUserSubmit}> 
               <FormControl  isRequired p={2} >
             
@@ -225,7 +225,7 @@ const dispatch = useDispatch()
                <Flex >
                <RadioGroup defaultValue={data.status=="fresher"?"fresher":"experienced"}  >
              <Radio   value="fresher"   name="status" onChange={handleUserChange}>Fresher</Radio> 
-              <Radio ml={"20px"}  value="experienced"    name="status" onChange={handleUserChange} >Experienced</Radio>
+              <Radio ml={["0px","20px","20px","20px"]}  value="experienced"    name="status" onChange={handleUserChange} >Experienced</Radio>
             
             </RadioGroup>
                </Flex>
@@ -239,7 +239,7 @@ const dispatch = useDispatch()
               </form>:job?<form onSubmit={edit?handleEditJob:handlePostJob}> 
               <FormControl  isRequired p={2} >
             
-            <Heading fontSize={"xl"} mt={5} > Post a New Job </Heading>
+           {edit?<Heading fontSize={"xl"} mt={5} >Edit your Job</Heading>:<Heading fontSize={"xl"} mt={5} > Post a New Job </Heading>}
               <FormLabel mt={5}>Company Name</FormLabel>
               <Input type='text' name="company_name" onChange={handleUserChange} disabled value={edit?editInfo.company_name:data.company_name}  /> 
               <FormLabel mt={5}>Post Title</FormLabel>

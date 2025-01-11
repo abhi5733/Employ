@@ -4,7 +4,7 @@ const {userRoute} = require("./Routes/UserRoute")
 const {adminRoute} = require("./Routes/AdminRoute")
 const {userModel} = require("./Model/UserModel")
 const {authenticator} = require("./middleware/Authentication")
-const {userDataModel} = require("./Model/UserData")
+// const {userDataModel} = require("./Model/UserData")
  const { upload } = require("./middleware/multer")
 const {uploadonCloudinary} = require("./cloudinary")
 

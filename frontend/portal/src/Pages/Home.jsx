@@ -5,7 +5,21 @@ import { FaAnglesRight } from "react-icons/fa6";
 import { FaAnglesLeft } from "react-icons/fa6";
 import Company from '../component/Company';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { LiaIndustrySolid } from "react-icons/lia";
+import { FcStatistics } from "react-icons/fc";
+import { FaRocket } from "react-icons/fa";
+import { IoMdPeople } from "react-icons/io";
+import { FcEngineering } from "react-icons/fc";
+import { FaArrowUpRightDots } from "react-icons/fa6";
+import { MdCurrencyRupee } from "react-icons/md";
+import { FaGraduationCap } from "react-icons/fa";
+import { RiShoppingBag3Fill } from "react-icons/ri";
+import HomeCompany from '../component/HomeCompany';
+import { useSelector } from 'react-redux';
+
+
+
 
 const Home = () => {
 
@@ -19,6 +33,10 @@ const Home = () => {
   const[toggleSearch,setToggleSearch] = useState(false)
   const[id,setId] = useState("") // Id of user who will search the jobs
   const toast = useToast()
+  const user = useSelector((store)=>store.user);
+  const token = useSelector((store)=>store.token);
+  const navigate = useNavigate()
+
   // scroll to left
 
   const scrollLeft = () => {
@@ -66,7 +84,15 @@ useEffect(() => {
 
 
   const handleSearchJobs = async()=>{
-
+    if(user=="admin"){
+      return toast({
+        description: "Admin Can't use this Search Functionality",
+        status: 'error',
+        position:"top",
+        duration: 2000,
+        isClosable: true,
+      })
+    }                                                                                           
     if(searchQuery === ""){
 return toast({
   description: "Please Enter a Search Query",
@@ -75,8 +101,17 @@ return toast({
   duration: 2000,
   isClosable: true,
 })
+    }if(!token){
+      toast({
+        description: "Login First",
+        status: 'error',
+        position:"top",
+        duration: 2000,
+        isClosable: true,
+      })
+ return navigate("/login")
     }
-   
+ 
     try{
 // console.log(searchQuery,"searchQuery")
 const data = await axios.get(`${import.meta.env.VITE_URL}/admin/searchJobs`,{
@@ -119,12 +154,13 @@ toast({
   <Box backgroundColor={"#f8f8fc"} > 
     <Box style={{width:"80%" , margin:"auto", boxShadow:'dark-lg'  }} >
     {/* 1st */}
-    <Box style={{textAlign:"center"  , padding:"50px"}} >
-      <Text style={{margin:"10px" , fontSize:"50px" , fontWeight:"bold"}}>Find Your Dream Job Now</Text>
-      <Text style={{margin:"10px" }} fontWeight={"semibold"} fontSize={"lg"} >5 lakh + job for you to explore</Text>
+    <Box style={{textAlign:"center" }}   padding={["5px","50px","50px","50px"]} >
+      <Text w={"100%"}  style={{margin:"10px"  , fontWeight:"bold"}} fontSize={["20px","50px","50px","50px"]}>Find Your Dream Job Now</Text>
+      <Text style={{margin:"10px" }} fontWeight={"semibold"} fontSize={["12px","30px","40px","40px"]} >5 lakh + job for you to explore</Text>
       <Box style={{ position:"relative", height:"60px"}} mt={10} >
-      <Input onChange={(e)=>setSearchQuery(e.target.value)} value={searchQuery} style={{width:"60%" , height:"100%" , borderRadius:"50px" , border:"0",  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)"  }} bgColor={"white"}  />
-      <Button onClick={handleSearchJobs} style={{position:"absolute" , right:"21%" , borderRadius:"50px", height:"80%" ,top:"10%"}} zIndex={5} >Search</Button> </Box> 
+      <Input placeholder={"Enter Text / designation / companies"} onChange={(e)=>setSearchQuery(e.target.value)}   value={searchQuery} style={{ borderRadius:"50px" , border:"0",  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)"  }}  height={[ "80%" ,"100%" , "100%" ,"100%"]} width={[ "100%","80%","60%","60%"]} bgColor={"white"} />
+      <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}  onClick={handleSearchJobs} style={{position:"absolute" , borderRadius:"50px",top:"10%"}} height={[ "60%" ,"80%" , "80%" ,"80%"]} right={[ "5%" , "10%" ,"21%" ,"21%"]} zIndex={5} >Search</Button>
+       </Box> 
    
     </Box>
 {/* 2 nd */}
@@ -132,7 +168,7 @@ toast({
  {toggleSearch && searchData.length>0?<Box> 
   <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={20} >
   {searchData.map((el)=>{
-    return <GridItem width={"300px"}p={5} border={"1px solid black"} >
+    return <GridItem  width={"300px"}p={5} bgColor={"white"} borderRadius={"5px"} boxShadow={"md"} >
          {/* <Heading fontSize={"large"} >Posted_by</Heading> */}
        <Image width={"100%"} src={el.posted_by.CompanyPic} /> 
        <Heading fontSize={"large"} >Company Name</Heading>
@@ -145,30 +181,11 @@ toast({
     <Heading fontSize={"large"} >Vacancy</Heading>
     <Text>{el.vacancy}</Text>
     {/* Passing Job Data to Jobs Page*/}
-<Link to="/jobs"  state={{ data: el , id }} > <Button >View Job</Button> </Link>
+<Link to="/jobs"  state={{ data: el , id }} > <Button  color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} >View Job</Button> </Link>
     </GridItem>
   })}
   </Grid>
-   </Box>:<Box mt={20} >
-  <Flex justifyContent="space-around" >
-     
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"}  > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     
-  </Flex>
-  <Flex justifyContent="space-around" mt={10} >
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     <Flex alignItems="center" boxShadow='xs' borderRadius="5px" p={5} bgColor={"white"} border={"1px solid lightgray"} > <FaHome style={{margin:"10"}} />  <Text style={{margin:"10" , fontWeight:"bold"}}>Remote</Text> <FaChevronRight style={{margin:"10"}}/> </Flex>
-     
-  </Flex>
- </Box> }
+   </Box>:<HomeCompany/> }
  {/* 3 rd  */}
 
 <Box textAlign="center"  mt="50px" position={"relative"} >
@@ -176,8 +193,8 @@ toast({
 <Text fontSize="30px" fontWeight="bold" >Top companies hiring now</Text>
 
 <Flex overflow="hidden" p={2} mt={10}  width="100%"  gap={5}  ref={scrollContainerRef}  >
- {showLeftButton &&  <FaAnglesLeft onClick={scrollLeft}   style={{position:"absolute", left:"10px" ,  zIndex:"1"  , top:"55%" , border:"1px solid lightgray" , fontSize:40 , borderRadius:"50%" , padding:10 , backgroundColor:"white"  }} />}
-   { showRightButton &&    <FaAnglesRight  onClick={scrollRight} style={{position:"absolute", right:"10px" ,  zIndex:"1"  , top:"55%" , border:"1px solid lightgray"  , fontSize:40 , borderRadius:"50%" , padding:10 ,  backgroundColor:"white" ,  }}   />
+ {showLeftButton &&  <FaAnglesLeft onClick={scrollLeft}   style={{position:"absolute", left:"10px" ,  top:"55%" , border:"1px solid lightgray" , fontSize:40 , borderRadius:"50%" , padding:10 , backgroundColor:"white"  }} />}
+   { showRightButton &&    <FaAnglesRight  onClick={scrollRight} style={{position:"absolute", right:"10px"  , top:"55%" , border:"1px solid lightgray"  , fontSize:40 , borderRadius:"50%" , padding:10 ,  backgroundColor:"white" ,  }}   />
      
       }
 

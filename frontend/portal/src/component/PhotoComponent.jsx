@@ -89,10 +89,10 @@ const PhotoComponent = ({data,setData,photoModal , handlePhotoModal , handleFile
    
     {/*********************  Photo Box *********************************/}
 
-     <Box w={"30%"} >
+     <Box   w={["100%","30%","30%","30%"]}>
         
               {!hovered && (
-                      <Box  w={"200px"} ml={"10%"} h={"250px"} border={"1px solid orange"} borderRadius={"50%"} overflow={"hidden"} >
+                      <Box  w={"200px"}  margin={"auto"} h={"250px"} border={"1px solid orange"} borderRadius={"50%"} overflow={"hidden"} >
             <Image
             src={toggle?data?.CompanyPic?data.CompanyPic:companyLogo:data?.profilePic?data.profilePic:placeholder}
               w="100%"
@@ -123,7 +123,7 @@ const PhotoComponent = ({data,setData,photoModal , handlePhotoModal , handleFile
 
          {/***************************Photo Modal***************************************/}
 
-  {photoModal && <Box p={5} textAlign={"center"} zIndex={102} boxShadow='2xl'  borderRadius={"10px"} top={"200px"}  bgColor={"white"} position={"absolute"}  width={"500px"} left={"50%"} right={"50%"} transform={"translate(-50%,-50%)"}  >
+  {photoModal && <Box p={5} textAlign={"center"} zIndex={102} boxShadow='2xl'  borderRadius={"10px"} top={"200px"}  bgColor={"white"} position={"absolute"}  width={[ "90%","500px","500px","500px"]} left={"50%"} right={"50%"} transform={"translate(-50%,-50%)"}  >
       <Box  position={"relative"} top={"10px"} left={"93%"} _hover={{cursor:"pointer"}} onClick={handlePhotoModal} > <ImCancelCircle style={{fontSize:"25px"}}  /> </Box>
          <Heading>Profile Photo Upload</Heading>
         { user=="user"?<Text mt={2}>Profile with photo has 40% higher chances of getting noticed by recruiters.</Text>:""}

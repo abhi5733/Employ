@@ -1,7 +1,7 @@
 const express = require("express")
 const {userModel} = require("../Model/UserModel")
 const { uploadonCloudinary } = require("../cloudinary")
-const { userDataModel } = require("../Model/UserData")
+// const { userDataModel } = require("../Model/UserData")
 const { upload } = require("../middleware/multer")
 const { authenticator } = require("../middleware/Authentication")
 const {adminModel} = require("../Model/Admin")
@@ -196,31 +196,31 @@ if(role=="user"){
 // getting all the data from UserData 
 
 
-adminRoute.get("/get" , async ( req,res )=>{
-const id = req.body.UserId
-console.log(id)
-    try{
+// adminRoute.get("/get" , async ( req,res )=>{
+// const id = req.body.UserId
+// console.log(id)
+//     try{
 
-const data = await userDataModel.find({userID:id})
+// const data = await userDataModel.find({userID:id})
 
-if(data.length>0){
-  res.send(data)
-}else{
-  const userData = new userDataModel({resume:"" ,
-    userID : id,
-    skills : []})
-  await userData.save()
-  console.log(userData)
-  res.send({data:userData})
-}
-    }
-    catch(err){
+// if(data.length>0){
+//   res.send(data)
+// }else{
+//   const userData = new userDataModel({resume:"" ,
+//     userID : id,
+//     skills : []})
+//   await userData.save()
+//   console.log(userData)
+//   res.send({data:userData})
+// }
+//     }
+//     catch(err){
         
-        res.status(400).send({"msg":"something went wrong"})
+//         res.status(400).send({"msg":"something went wrong"})
    
-    }
+//     }
 
-})
+// })
 
 
 

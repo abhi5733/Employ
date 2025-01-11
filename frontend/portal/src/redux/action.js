@@ -5,8 +5,7 @@ import axios from "axios"
 // login function
 
 export const loginFunction = (obj)=>(dispatch)=>{
-    // http://localhost:7300/
-    // console.log(1)
+
   return  axios.post(`${import.meta.env.VITE_URL}/user/login`, obj).then((res)=>res)
     .catch((err)=>err)
 

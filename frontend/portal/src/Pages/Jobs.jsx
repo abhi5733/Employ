@@ -66,28 +66,11 @@ useEffect(()=>{
 
 
 
-// const getMyJobs=()=>{
-
-//   axios.get("http://localhost:7300/admin/getMyJob", {
-//     "headers":{
-//       "Authorization":localStorage.getItem("token")
-//     }
-//   }).then((res)=>{
-//     console.log(res);
-//     setJob(res.data)
-//   })
-//   .catch((err)=>{
-//     console.log(err)
-//   })
-
-
-// }
-
 
 
   return (
-<Box>{ (!myJob &&  Object.keys(datas).length !== 0)? <Box width={"80%"} p={5} border="1px solid black" margin="auto"> 
-<Flex> <Box width={"20%"} > <Button  onClick={()=>setMyJob(true)} >Get All Jobs</Button> </Box>
+<Box backgroundColor={"#f8f8fc"}  >{ (!myJob &&  Object.keys(datas).length !== 0)? <Box height={"90vh"} width={"80%"} p={5} margin="auto"> 
+<Flex> <Box width={"20%"} > <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}  onClick={()=>setMyJob(true)} >Get All Jobs</Button> </Box>
  <Box width={"80%"} >
     <Heading mt={2} fontSize={"large"} >Company Name</Heading>
     <Text mt={2} >{datas.company_name}</Text>
@@ -100,24 +83,25 @@ useEffect(()=>{
     <Heading  mt={2} fontSize={"large"}>Salary</Heading>
     <Flex gap={5}> <Text mt={2}> <b>min : </b> ₹ {datas.salary.min}</Text> 
     <Text mt={2}><b>max : </b> ₹ {datas.salary.max}</Text></Flex>  
-<Button isDisabled={datas.applicants.includes(id)?true:false} onClick={()=>{datas.applicants.includes(id)?"":handleApplyJob(datas)}} >{datas.applicants.includes(id)?"Already Applied":"Apply Job"}</Button>
+<Button mt={5} isDisabled={datas.applicants.includes(id)?true:false} onClick={()=>{datas.applicants.includes(id)?"":handleApplyJob(datas)}} >{datas.applicants.includes(id)?"Already Applied":"Apply Job"}</Button>
  </Box>  </Flex>
 
      </Box> 
- :<Box width={"80%"} border="1px solid black" margin="auto" >
+ :<Box width={"80%"} p={2} margin="auto" >
 
-  <Link to="/"><Button  onClick={()=>setMyJob(false)} >Go Back</Button> </Link> 
-<Heading textAlign={"center"} >All My Jobs</Heading>
+  <Link to="/"><Button mt={["10px","","",""]} color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} onClick={()=>setMyJob(false)} >Go Back</Button> </Link> 
+<Heading mt={["10px","","",""]}  textAlign={"center"} >All My Jobs</Heading>
     <Flex justifyContent={"space-evenly"} >
 
- <Grid  templateColumns="repeat(3, 1fr)" gap={6} mt={20} > {
+ <Grid p={2}  templateColumns={["repeat(1, 1fr)","repeat(2, 1fr)","repeat(3, 1fr)","repeat(3, 1fr)"]} gap={6} mt={20} > {
 job.length>0 && job.map((el)=>{
  
-  return <GridItem width={"300px"}p={2} border="1px solid black" >
+  return <GridItem backgroundColor={"white"} width={["200px","200px","300px","300px"]}p={2} borderRadius={"5px"} boxShadow={"md"} >
 
-    <Text>{el.company_name}</Text>
-   <Text>{el.description}</Text>
-   <Text>{el.vacancy}</Text>
+    <Text><b>Company Name : </b>{el.company_name}</Text>
+    <Text><b>Post Title :  </b>{el.postTitle}</Text>
+   <Text><b>Description : </b>{el.description}</Text>
+  
    {/* <Button onClick={()=>handleApply(el)} disabled={el.applicant.includes()}  >Apply</Button> */}
    </GridItem>
 }) }   </Grid>

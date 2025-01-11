@@ -14,7 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import loader from "../assets/loader.gif"
 import PhotoComponent from '../component/PhotoComponent'
 import InfoComponent from '../component/InfoComponent'
-
+import placeholder from "../assets/placeholderImage.png"
+import companyLogo from "../assets/logoPlaceholder.png"
 const CompleteProfile = () => {
 
   const dispatch= useDispatch() 
@@ -281,7 +282,7 @@ console.log(1)
   const getPostedJobs = async ()=>{
 
     try{
-      setShowJobs((prev)=>!prev)
+      setShowJobs(true)
       dispatch(loadingFunction())
       const jobs = await axios.get(`${import.meta.env.VITE_URL}/admin/getJob`, {
         headers:{
@@ -335,7 +336,7 @@ dispatch(stoploadingFunction())
           duration: 2000,
           isClosable: true,
         })
-
+        getPostedJobs()
           }catch(err){
             dispatch(stoploadingFunction())
             toast({
@@ -364,11 +365,11 @@ dispatch(stoploadingFunction())
     <Box    width={"80%"} margin={"auto"}>
 
     {/* /////////////////////////////////////////////////////  Top - Portion    /////////////////////////////////////////////////////////////// */}
-      <Flex   border={"2px solid orange"}  bgColor={"white"} mt={50} borderRadius={"10px"} justifyContent={"space-between"} p={5} position={"relative"} >
+      <Flex  flexDirection={["column","row","row","row"]} border={"2px solid orange"}  bgColor={"white"} mt={50} borderRadius={"10px"} justifyContent={"space-between"} p={5} position={"relative"} >
       {/******************************  Photo Component  ***************************************/}
     <PhotoComponent data={data} file={file} setData={setData} photoModal={photoModal} handlePhotoModal={handlePhotoModal} handleFileChange={handleFileChange} />
     
-        <Box w={"70%"}  p={5} position={"relative"} >
+        <Box w={[ "100%","70%","70%","70%"]}  p={5} position={"relative"} >
           {/*************************************** Info Component ******************************************************/}
   <InfoComponent  data={data}  load={load} setModal={setModal} modal={modal} handleUserChange={handleUserChange} job={job} setJob ={setJob} jobDescription={jobDescription}setData={setData} edit={edit} setEditJob={setEditJob} jobList={jobList} editId={editId} editInfo={editInfo}  setJobDescription={ setJobDescription} />
     
@@ -384,7 +385,7 @@ dispatch(stoploadingFunction())
 {resumeDown && <Box  margin={"auto"} p={2}  bgColor={"white"}  >
   
   <Text>Resume is the most important document recruiters look for. Recruiters generally do not look at profiles without resumes.</Text>
-  <Box width={expandResume?"100%":data?.resume==""?"auto":"500px"} height={expandResume?"800px":data?.resume==""?"auto":"600px"}  margin={"10px auto"}  > 
+  <Box width={expandResume?"100%":data?.resume==""?"auto":["100%","500px","500px","500px"]} height={expandResume?"800px":data?.resume==""?"auto":"600px"}  margin={"10px auto"}  > 
   {/* Displaying Resume in Iframe here */}
   {data?.resume!=="" && <iframe  src={data?.resume} width={"100%"} height="80%" frameborder="0"></iframe>} 
    {uploadResume?<form onSubmit={handleSubmit}>
@@ -403,7 +404,7 @@ dispatch(stoploadingFunction())
          {skillsDown==false?<FaChevronDown onClick={()=>!load?setSkillsDown((prev)=>!prev):""} style={{margin:"5px"  }} />
          :<FaChevronUp onClick={()=>!load?setSkillsDown((prev)=>!prev):""} style={{margin:"5px"  }}/>}  </Flex> 
  { skillsDown &&  <Box bgColor={"white"} p={2} >
-<Grid gap={10} textAlign={"center"} gridTemplateColumns={"repeat(6,1fr)"} > 
+<Grid gap={10} textAlign={"center"} gridTemplateColumns={["repeat(2,1fr)","repeat(6,1fr)","repeat(6,1fr)","repeat(6,1fr)"]} > 
 {data?.skills?.length>0 ?data.skills.map((el)=>{
   return <Box p={2}  bgColor={"gray.200"} borderRadius={"5px"} w={"100px"}  >{el}</Box>
 }):<Text>No skills added as of now</Text>}
@@ -425,12 +426,12 @@ dispatch(stoploadingFunction())
 // Show all Posted jobs
 <Box>
 <Flex mt={10} p={2} borderRadius={5} border={"2px solid orange"} bgColor={"white"}  justifyContent={"space-between"} > <Heading fontSize={"20px"} >Job Posted</Heading>  
-{!showJobs?<FaChevronDown onClick={()=>!load?getPostedJobs():""} style={{margin:"5px" }} />:<FaChevronUp onClick={()=>!load?setShowJobs((prev)=>!prev):""} style={{margin:"5px" }}/>}  </Flex> 
+{!showJobs?<FaChevronDown onClick={()=>!load?getPostedJobs():""} style={{margin:"5px" }} />:<FaChevronUp onClick={()=>!load?setShowJobs(false):""} style={{margin:"5px" }}/>}  </Flex> 
 {showJobs && jobList.length>0?<Box bgColor={"white"}>
   {jobList.map((el,ind)=> <Box mt={"10px"} p={5} border={"2px solid orange"} key={el._id}>  
     <Flex justifyContent={"space-around"} >
       <Box width={"30%"} >
-        <Image width={"100%"} borderRadius={"5px"} src={data.CompanyPic} />
+        <Image width={"100%"} borderRadius={"5px"} src={data?.CompanyPic||companyLogo} />
       </Box>
       <Box width={"50%"}> 
         <Flex h={"100%"}  flexDirection={"column"} justifyContent={"space-between"} > 
@@ -439,8 +440,8 @@ dispatch(stoploadingFunction())
       <Text><b> Company Name : </b> {el.company_name}</Text>
       </Box>
      <Box mt={"20px"}>
-      <Button onClick={()=>{  setEditInfo(el) , setJob((prev)=>!prev) , setEditJob(prev=>!prev) , setModal(true)}} >Edit</Button>
-      <Button  ml={"10px"} onClick={()=>handleDelete(el)} >Delete</Button>
+      <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} onClick={()=>{  setEditInfo(el) , setJob((prev)=>!prev) , setEditJob(prev=>true) , setModal(true)}} >Edit</Button>
+      <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}  ml={"10px"} onClick={()=>handleDelete(el)} >Delete</Button>
       </Box>
       </Flex>
       </Box>
@@ -462,30 +463,3 @@ dispatch(stoploadingFunction())
 export default CompleteProfile
 
 
-
-
-// adminRoute.delete("/deleteJob/:id", async (req, res) => {
-//   const jobId = req.params.id;
-
-//   try {
-//     // Find the job to get the list of applicants
-//     const job = await jobModel.findById(jobId);
-//     if (!job) {
-//       return res.status(404).send({ msg: "Job not found" });
-//     }
-
-//     // Remove the job from each applicant's appliedJobs array
-//     await userModel.updateMany(
-//       { _id: { $in: job.applicants } }, // Users in job's applicants array
-//       { $pull: { appliedJobs: jobId } } // Remove the job reference
-//     );
-
-//     // Delete the job itself
-//     await jobModel.findByIdAndDelete(jobId);
-
-//     res.status(200).send({ msg: "Job deleted successfully and removed from applicants" });
-//   } catch (err) {
-//     console.error("Error deleting job:", err);
-//     res.status(500).send({ msg: "Something went wrong", error: err.message });
-//   }
-// });

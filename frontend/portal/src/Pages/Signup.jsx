@@ -100,18 +100,18 @@ isClosable: true,
     <Box  bgColor={"#f8f8fc"}  > 
 
 {user=="user"?
-  <Box width="80%" p={10}   margin="auto"  >
+  <Box width="80%" p={[2,10,10,10]}   margin="auto"  >
 
-  <Flex gap={20}  >
+  <Flex gap={20} flexDirection={["column","column","row","row"]} >
   { load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}    margin={"auto"}  w={"500px"} h={"500px"}  /> }
-<Box  bgColor={"white"} boxShadow={"lg"} mt={"20px"}  width={"30%"} p={2}  >
+<Box borderRadius={20}  bgColor={"white"} boxShadow={"lg"} mt={"20px"}  w={[ "100%","100%","50%","50%"]}p={2}  >
   <Image w={'60%'}  margin={"50px auto"} src="https://static.naukimg.com/s/7/104/assets/images/white-boy.a0d2814a.png" alt="text" />
  <Text textAlign={"Center"} fontWeight="bold" m={10}  >On registering , you can</Text>
 <Flex alignItems={"center"} ><FaRegCircleCheck /> <Text m={2} >Build your Profie and let recruiters find you</Text></Flex>
 <Flex alignItems={"center"} ><FaRegCircleCheck/> <Text m={2}>Build your Profie and let recruiters find you</Text></Flex>
 <Flex alignItems={"center"} ><FaRegCircleCheck/> <Text m={2}>Build your Profie and let recruiters find you</Text></Flex>
 </Box>
-<Box boxShadow={"lg"} width={"50%"} mt={"20px"}  bgColor={"white"}  borderRadius={20} p={2} > 
+<Box boxShadow={"lg"}  w={[ "100%","100%","50%","50%"]} mt={"20px"}  bgColor={"white"}  borderRadius={20} p={2} > 
 <form onSubmit={handleSubmit}> 
   <FormControl  isRequired p={2} >
 
@@ -129,24 +129,24 @@ isClosable: true,
   <Input type="number" name="number" onChange={handleChange} value={state.number} />
   <FormLabel mt={5}>Work Status</FormLabel>
 
-<Flex  justifyContent={"space-between"} gap={2} >
+<Flex flexDirection={["column","row","row","row"]}   justifyContent={"space-between"} gap={2} >
 
-<Flex  border={"1px solid lightgray"} _hover={{boxShadow:"md" ,cursor:"pointer" }}  borderRadius={"10px"} p={2} value="Exp" name="Exp" onClick={(e) => handleStatus("experienced")} > 
+<Flex flexDirection={["column","column","column","row"]} border={"1px solid lightgray"} _hover={{boxShadow:"md" ,cursor:"pointer" }}  borderRadius={"10px"} p={2} value="Exp" name="Exp" onClick={(e) => handleStatus("experienced")} > 
 <Box>
   <Heading size="sm" >I am Experienced</Heading>
   <Text>I have work Experience </Text>
   <Text>(Excluding internship)</Text>
 </Box>
-<Image ml={2} src="https://static.naukimg.com/s/7/104/assets/images/briefcase.bdc5fadf.svg" />
+<Image ml={2} mt={["10px","10px","10px",""]} w={[  "30%","30%", "50%"  ,"20%"]} src="https://static.naukimg.com/s/7/104/assets/images/briefcase.bdc5fadf.svg" />
 </Flex>
 
-<Flex  border={"1px solid lightgray"} _hover={{boxShadow:"lg" ,cursor:"pointer" }}   borderRadius={"10px"} p={2} value="fresh" name="fresh"  onClick={(e) => handleStatus("fresher")} > 
+<Flex flexDirection={["column","column","column","row"]}  border={"1px solid lightgray"} _hover={{boxShadow:"lg" ,cursor:"pointer" }}   borderRadius={"10px"} p={2} value="fresh" name="fresh"  onClick={(e) => handleStatus("fresher")} > 
 <Box >
   <Heading size="sm" >I am Fresher</Heading>
   <Text>I am a Student /</Text>
   <Text>Haven't worked after graduation</Text>
 </Box>
-<Image ml={2} src="https://static.naukimg.com/s/7/104/assets/images/schoolbag.a54cbf7a.svg" />
+<Image ml={2}  mt={["10px","10px","10px",""]} w={[  "30%","30%", "50%"  ,"20%"]}   src="https://static.naukimg.com/s/7/104/assets/images/schoolbag.a54cbf7a.svg" />
 </Flex>
 
 </Flex>
@@ -164,7 +164,7 @@ isClosable: true,
 </Box>:
 
 <Box width="80%" p={10}   margin="auto" >
-<Flex gap={20}  > 
+<Flex flexDirection={["column","column","row","row"]} gap={20}  > 
 <Box w={"50%"} boxShadow={"2xl"}  h={"500px"} textAlign={"center"} position={"sticky"} top={"10vh"}  mt={50} bgColor={"white"} borderRadius={"10px"} p={5}  >
 
 <Heading fontSize={"xl"} >From Campus to Senior Level Hiring</Heading>
