@@ -1,7 +1,10 @@
-import { Box , Button, Flex, Grid, GridItem, Heading, Text, useToast } from '@chakra-ui/react'
+import { Box , Button, Flex, Grid, GridItem, Heading, Image, Text, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { Link, useLocation } from "react-router-dom";
+import { adminLoginFunction, loadingFunction, logged, loginFunction, stoploadingFunction } from '../redux/action'
+import { useDispatch, useSelector } from 'react-redux';
+import loader from "../assets/loader.gif"
 
 const Jobs = () => {
   const[data,setData] = useState({})  // for storing Job Data
@@ -11,22 +14,24 @@ const Jobs = () => {
   const id = location?.state?.id || "" ;
   const toast = useToast()
   const[myJob,setMyJob] = useState(false)
-
-
+  const dispatch= useDispatch() 
+  const load = useSelector((store)=>store.load)
 
 useEffect(()=>{
 
 // Get all My jobs
-
+dispatch(loadingFunction())
     axios.get(`${import.meta.env.VITE_URL}/admin/getMyJob`, {
       "headers":{
         "Authorization":localStorage.getItem("token")
       }
     }).then((res)=>{
+      dispatch(stoploadingFunction())
       console.log(res.data.myJobs);
       setJob(res.data.myJobs)
     })
     .catch((err)=>{
+      dispatch(stoploadingFunction())
       console.log(err)
     })
 
@@ -35,7 +40,7 @@ useEffect(()=>{
 // apply jobs
 
   const handleApplyJob =(data)=>{
-
+    dispatch(loadingFunction())
    axios.put(`${import.meta.env.VITE_URL}/admin/applyJob`,data ,{
       "headers":{
         "Authorization":localStorage.getItem("token")
@@ -45,8 +50,8 @@ useEffect(()=>{
         position:"top",
         duration: 2000,
         isClosable: true,
-      }) , datas.applicants.push(id) , setData("") })
-      .catch((err) =>{console.log(err),
+      }) ,   dispatch(stoploadingFunction()) ,  datas.applicants.push(id) , setData("") })
+      .catch((err) =>{console.log(err),  dispatch(stoploadingFunction()),
         err.response.status=="500"?(toast({
           description: "Already Applied for Job",
           status: 'success',
@@ -69,7 +74,10 @@ useEffect(()=>{
 
 
   return (
-<Box backgroundColor={"#f8f8fc"}  >{ (!myJob &&  Object.keys(datas).length !== 0)? <Box height={"90vh"} width={"80%"} p={5} margin="auto"> 
+<Box backgroundColor={"#f8f8fc"}  >
+{ load &&  <Image position="absolute" src={loader} left={"50%"} top={"50%"} transform={"translate(-50%,-50%)"}   margin={"auto"} h={"500px"}  w={"500px"}  /> }
+
+  { (!myJob &&  Object.keys(datas).length !== 0)? <Box height={"90vh"} width={"80%"} p={5} margin="auto"> 
 <Flex> <Box width={"20%"} > <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"}  onClick={()=>setMyJob(true)} >Get All Jobs</Button> </Box>
  <Box width={"80%"} >
     <Heading mt={2} fontSize={"large"} >Company Name</Heading>
@@ -87,14 +95,14 @@ useEffect(()=>{
  </Box>  </Flex>
 
      </Box> 
- :<Box width={"80%"} p={2} margin="auto" >
+ :<Box height={"90vh"} width={"80%"} p={2} margin="auto" >
 
   <Link to="/"><Button mt={["10px","","",""]} color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} onClick={()=>setMyJob(false)} >Go Back</Button> </Link> 
 <Heading mt={["10px","","",""]}  textAlign={"center"} >All My Jobs</Heading>
     <Flex justifyContent={"space-evenly"} >
 
  <Grid p={2}  templateColumns={["repeat(1, 1fr)","repeat(2, 1fr)","repeat(3, 1fr)","repeat(3, 1fr)"]} gap={6} mt={20} > {
-job.length>0 && job.map((el)=>{
+job.length>0?job.map((el)=>{
  
   return <GridItem backgroundColor={"white"} width={["200px","200px","300px","300px"]}p={2} borderRadius={"5px"} boxShadow={"md"} >
 
@@ -104,7 +112,7 @@ job.length>0 && job.map((el)=>{
   
    {/* <Button onClick={()=>handleApply(el)} disabled={el.applicant.includes()}  >Apply</Button> */}
    </GridItem>
-}) }   </Grid>
+}):<Text>No Jobs Applied</Text> }   </Grid>
 
    </Flex>
 
