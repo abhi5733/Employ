@@ -207,18 +207,18 @@ const dispatch = useDispatch()
 
               {/*************************** Info / job Modal ***************************************/}
 
-              {modal &&    <Box zIndex={102} bgColor={"white"} position={"fixed"} p={2} margin={"auto"} w={["90%", "80%", "50%", "40%"]} top={user === "user" ? ["50%", "50%", "50%", "50%"] : job ? "20%" : "10%"} left="50%" transform="translate(-50%, -50%)" boxShadow='2xl'  borderRadius={"10px"}   display={modal?"block":"none"} >
+              {modal &&    <Box zIndex={102} bgColor={"white"} position={"fixed"} p={2} margin={"auto"} w={["90%", "80%", "50%", "40%"]} h={user === "user" ?"":"100%"} top={user === "user" ? ["50%", "50%", "50%", "50%"] : job ? "50%" : "50%"} left="50%" transform="translate(-50%, -50%)" boxShadow='2xl'  borderRadius={"10px"}   display={modal?"block":"none"} >
              <Box  position={"relative"} top={"10px"} left={["85%","93%","93%","93%"]} _hover={{cursor:"pointer"}} onClick={()=>{setModal((prev)=>!prev),setJob(false),setEditJob(false)}} > <ImCancelCircle style={{fontSize:"25px"}}  /> </Box>
                       {user=="user"?<form onSubmit={handleUserSubmit}> 
               <FormControl  isRequired p={2} >
             
-            <Heading fontSize={"xl"} mt={5} > Basic Details </Heading>
+            <Heading fontSize={"xl"} mt={[1,2,2,1]} > Basic Details </Heading>
             
-              <FormLabel mt={5}>Name</FormLabel>
+              <FormLabel  mt={[1,2,2,1]}>Name</FormLabel>
               <Input type='name' name="name" onChange={handleUserChange} value={data.name}  /> 
-              <FormLabel mt={5}>Email address</FormLabel>
+              <FormLabel  mt={[1,2,2,1]}>Email address</FormLabel>
               <Input type='email' name="email" onChange={handleUserChange} disabled value={data.email}  /> 
-              <FormLabel mt={5}>Mobile Number</FormLabel>
+              <FormLabel  mt={[1,2,2,1]}>Mobile Number</FormLabel>
               <Input type="number" name="number" onChange={handleUserChange} value={data.number} />
               
               <FormLabel>Experience</FormLabel>
@@ -230,7 +230,7 @@ const dispatch = useDispatch()
             </RadioGroup>
                </Flex>
             
-            <FormLabel mt={5}>City</FormLabel>
+            <FormLabel  mt={[1,2,2,1]}>City</FormLabel>
             <Input type='text' name="city" value={data.city} onChange={handleUserChange}  />
               <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} isDisabled={data.status?false:true} type='submit'mt={5} >Update</Button>
               
@@ -239,13 +239,14 @@ const dispatch = useDispatch()
               </form>:job?<form onSubmit={edit?handleEditJob:handlePostJob}> 
               <FormControl  isRequired p={2} >
             
-           {edit?<Heading fontSize={"xl"} mt={5} >Edit your Job</Heading>:<Heading fontSize={"xl"} mt={5} > Post a New Job </Heading>}
-              <FormLabel mt={5}>Company Name</FormLabel>
-              <Input type='text' name="company_name" onChange={handleUserChange} disabled value={edit?editInfo.company_name:data.company_name}  /> 
-              <FormLabel mt={5}>Post Title</FormLabel>
+           {edit?<Heading fontSize={"xl"}  mt={[1,2,2,1]} >Edit your Job</Heading>:<Heading fontSize={"xl"}  mt={[1,2,2,1]} > Post a New Job </Heading>}
+              <FormLabel mt={[1,2,2,1]}>Company Name</FormLabel>
+              <Input height={"30px"} type='text' name="company_name" onChange={handleUserChange} disabled value={edit?editInfo.company_name:data.company_name}  /> 
+              <FormLabel  mt={[1,2,2,1]}>Post Title</FormLabel>
               {/* <Input type='text' name="postTitle" value={edit?editInfo.postTitle:jobDescription.postTitle} onChange={handleUserChange}    />  */}
               <Select
-                 mt={5}
+              height={"30px"}
+                 mt={[1,2,2,1]}
                  onChange={handleUserChange} // Replace with your handler function
                  name="postTitle"
                  defaultValue={"choose"}
@@ -267,10 +268,10 @@ const dispatch = useDispatch()
                  <option value="Product Manager">Product Manager</option>
                 <option value="IT Support Specialist">IT Support Specialist</option>
                 </Select>
-     <FormLabel mt={5}>Description</FormLabel>
-              <Input type="text" name="description" value={edit?editInfo.description:jobDescription.description} onChange={handleUserChange} />
+     <FormLabel  mt={[1,2,2,1]}>Description</FormLabel>
+              <Input height={"30px"} type="text" name="description" value={edit?editInfo.description:jobDescription.description} onChange={handleUserChange} />
               <FormLabel>Employment Type</FormLabel>
-              <Select mt={5} onChange={handleUserChange} required name="employment_type" defaultValue={"choose"} width={"50%"} value={edit?editInfo.employment_type:jobDescription.employment_type} >
+              <Select height={"30px"}  mt={[1,2,2,1]} onChange={handleUserChange} required name="employment_type" defaultValue={"choose"} width={"50%"} value={edit?editInfo.employment_type:jobDescription.employment_type} >
                 <option disabled value="choose"  >Choose any one</option>
                   <option  value="Full-time">Full-time</option>
                   <option  value="Part-time" >Part-time</option>
@@ -278,53 +279,53 @@ const dispatch = useDispatch()
                   <option  value="Internship" >Internship</option>
                 </Select>
             
-            <FormLabel mt={5}>Tags</FormLabel>
-            <Input type='text' name="tags"  value={edit?editInfo.tags:jobDescription.tags}  onChange={handleUserChange}  />
-            <FormLabel mt={5}>Vacancy</FormLabel>
-            <Input type='number' name="vacancy"  value={edit?editInfo.vacancy:jobDescription.vacancy} onChange={handleUserChange}  />
-            <FormLabel mt={5}>Salary</FormLabel>
+            <FormLabel  mt={[1,2,2,1]}>Tags</FormLabel>
+            <Input height={"30px"} type='text' name="tags"  value={edit?editInfo.tags:jobDescription.tags}  onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Vacancy</FormLabel>
+            <Input height={"30px"} type='number' name="vacancy"  value={edit?editInfo.vacancy:jobDescription.vacancy} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Salary</FormLabel>
             <Flex gap={5}> 
               <Box> 
-            <FormLabel mt={5}>Minimum Salary</FormLabel>
-            <Input  type='number' name="minSalary"  value={edit?editInfo?.salary?.min:jobDescription?.salary?.min} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Minimum Salary</FormLabel>
+            <Input height={"30px"}  type='number' name="minSalary"  value={edit?editInfo?.salary?.min:jobDescription?.salary?.min} onChange={handleUserChange}  />
             </Box>
             <Box> 
-            <FormLabel mt={5}>Maximum Salary</FormLabel>
-            <Input  type='number'  name="maxSalary"  value={edit?editInfo?.salary?.max:jobDescription?.salary?.max} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Maximum Salary</FormLabel>
+            <Input height={"30px"}  type='number'  name="maxSalary"  value={edit?editInfo?.salary?.max:jobDescription?.salary?.max} onChange={handleUserChange}  />
             </Box>
             </Flex>
-            <Button  isDisabled={load?true:false} color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit'mt={5} >Post</Button>
+            <Button height={"30px"} isDisabled={load?true:false} color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit'mt={5} >Post</Button>
               
               </FormControl>
               </form>:<form onSubmit={handleUserSubmit}> 
-              <FormControl  isRequired p={2} >
+              <FormControl  isRequired p={1} >
             
-            <Heading fontSize={"xl"} mt={5} > Basic Details </Heading>
+            <Heading fontSize={"xl"}  mt={[1,2,2,1]} > Basic Details </Heading>
             
-              <FormLabel mt={5}>Name</FormLabel>
-              <Input type='text' name="name" onChange={handleUserChange} value={data.name}  /> 
-              <FormLabel mt={5}>Email address</FormLabel>
-              <Input type='email' name="email" onChange={handleUserChange} disabled value={data.email}  /> 
-              <FormLabel mt={5}>Mobile Number</FormLabel>
-              <Input type="number" name="number" onChange={handleUserChange} value={data.number} />
+              <FormLabel  mt={[1,2,2,1]}>Name</FormLabel>
+              <Input type='text' name="name" height={"30px"} onChange={handleUserChange} value={data.name}  /> 
+              <FormLabel  mt={[1,2,2,1]}>Email address</FormLabel>
+              <Input type='email' name="email" height={"30px"} onChange={handleUserChange} disabled value={data.email}  /> 
+              <FormLabel  mt={[1,2,2,1]}>Mobile Number</FormLabel>
+              <Input type="number" name="number" height={"30px"} onChange={handleUserChange} value={data.number} />
               
               <FormLabel>Company Name</FormLabel>
-              <Input type="text" name="company_name" onChange={handleUserChange} value={data.company_name} />
+              <Input type="text" name="company_name" height={"30px"} onChange={handleUserChange} value={data.company_name} />
             
               <FormLabel>designation</FormLabel>
-              <Input type="text" name="designation" onChange={handleUserChange} value={data.designation} />
+              <Input type="text" name="designation" height={"30px"} onChange={handleUserChange} value={data.designation} />
             
-            <FormLabel mt={5}>Company Loaction</FormLabel>
-            <Input type='text' name="CompanyLoaction" value={data.CompanyLoaction} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Company Loaction</FormLabel>
+            <Input type='text' name="CompanyLoaction" height={"30px"} value={data.CompanyLoaction} onChange={handleUserChange}  />
 
-            <FormLabel mt={5}>Company Address</FormLabel>
-            <Input type='text' name="address" value={data.address} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Company Address</FormLabel>
+            <Input type='text' name="address" height={"30px"} value={data.address} onChange={handleUserChange}  />
             
-            <FormLabel mt={5}>Pin Code</FormLabel>
-            <Input type='number' name="pin_code" value={data.pin_code} onChange={handleUserChange}  />
+            <FormLabel  mt={[1,2,2,1]}>Pin Code</FormLabel>
+            <Input type='number' name="pin_code" height={"30px"} value={data.pin_code} onChange={handleUserChange}  />
             
             {/* isDisabled={data.status?false:true}  */}
-              <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit'mt={5} >Update</Button>
+              <Button color={"white"} _hover={{bgColor:"orange"}}   bgColor={"darkorange"} type='submit' mt={[1,2,2,1]} >Update</Button>
               
               </FormControl>
               </form>}
