@@ -360,7 +360,7 @@ adminRoute.put("/applyJob" , async (req,res)=>{
       session.startTransaction();
       // job Model
   const {applicants , _id} = req.body
-  const job = await userModel.findById(_id)
+  const job = await jobModel.findById(_id)
 
   if(applicants.includes(req.body.UserId) || job.applicants.includes(req.body.UserId)){
   res.status(404).send({"msg":"user already exists"}) 
