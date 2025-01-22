@@ -23,9 +23,4 @@ info :
 
 
 
-    <!--  file upload notes -->
-
-
-continue working on file upload page on features  
-such as resume update skills update  .
     
